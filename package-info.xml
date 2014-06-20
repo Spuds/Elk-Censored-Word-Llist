@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
+<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+	<id>Spuds:CensoredWords</id>
+	<name>Censored Words</name>
+	<version>1.0</version>
+	<type>addon</type>
+	<license><![CDATA[
+/**
+ * Censored Words
+ *
+ * @license WTFPL http://www.wtfpl.net/txt/copying/
+ *
+ * @version 1.0
+ */
+]]></license>
+	<install for="1.0 RC1 - 1.0.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<code>database.php</code>
+		<redirect url="?action=admin;area=postsettings;sa=censor" timeout="5000">redirect.txt</redirect>
+	</install>
+	<uninstall for="1.0 RC1 - 1.0.99">
+		<code>database.php</code>
+	</uninstall>
+</package-info>
