@@ -14,12 +14,12 @@
  * @version 1.0
  */
 ]]></license>
-	<install for="1.0 RC1 - 1.0.99">
+	<install for="1.0 - 1.0.99">
 		<readme type="file" parsebbc="true">readme.txt</readme>
 		<code>database.php</code>
 		<redirect url="?action=admin;area=postsettings;sa=censor" timeout="5000">redirect.txt</redirect>
 	</install>
-	<uninstall for="1.0 RC1 - 1.0.99">
+	<uninstall for="1.0 - 1.0.99">
 		<code>database.php</code>
 	</uninstall>
 </package-info>
