@@ -10,15 +10,20 @@
 
 // If we have found SSI.php and we are outside of ELK, then we are running standalone.
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('ELK'))
+{
 	require_once(dirname(__FILE__) . '/SSI.php');
+}
 elseif (!defined('ELK')) // If we are outside ELK and can't find SSI.php, then throw an error
+{
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as Elkarte\'s SSI.php.');
+}
 
 $db = database();
 
 // Get current censored words
 $request = $db->query('', '
-	SELECT value
+	SELECT 
+		value
 	FROM {db_prefix}settings
 	WHERE variable = {string:censor_vulgar}',
 	array(
@@ -28,12 +33,15 @@ $request = $db->query('', '
 $censor_vulgar = array();
 $row = $db->fetch_assoc($request);
 if (!empty($row['value']))
+{
 	$censor_vulgar = explode("\n", $row['value']);
+}
 $db->free_result($request);
 
 // And the translate to values
 $request = $db->query('', '
-	SELECT value
+	SELECT 
+		value
 	FROM {db_prefix}settings
 	WHERE variable = {string:censor_proper}',
 	array(
@@ -43,7 +51,9 @@ $request = $db->query('', '
 $censor_proper = array();
 $row = $db->fetch_assoc($request);
 if (!empty($row['value']))
+{
 	$censor_proper = explode("\n", $row['value']);
+}
 $db->free_result($request);
 
 // Define what we will say instead, how about puppies cuz who does not like puppies?
@@ -440,7 +450,9 @@ if (empty($context['uninstalling']))
 	// Define what we will say instead
 	$add_censor_proper = array();
 	foreach ($add_censor_vulgar as $word)
+	{
 		$add_censor_proper[] = $replace_word_with;
+	}
 
 	// Add them to whats there
 	$censor_vulgar += $add_censor_vulgar;
@@ -454,15 +466,19 @@ else
 	foreach ($censor_vulgar_temp as $i => $value)
 	{
 		if (in_array($value, $add_censor_vulgar) && $censor_proper_temp[$i] == $replace_word_with)
+		{
 			unset($censor_vulgar[$i], $censor_proper[$i]);
+		}
 	}
 }
 
 // Update the database with the new settings:
 updateSettings(array(
-  'censor_vulgar' => implode("\n", $censor_vulgar),
-  'censor_proper' => implode("\n", $censor_proper),
+	'censor_vulgar' => implode("\n", $censor_vulgar),
+	'censor_proper' => implode("\n", $censor_proper),
 ));
 
 if (ELK == 'SSI')
-   echo 'Congratulations, you have successfully installed this addon';
+{
+	echo 'Congratulations, you have successfully installed this addon';
+}
